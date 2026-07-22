@@ -145,11 +145,11 @@ function enviarCorreos() {
     const templateParams = {
         to_email_ali: 'alisonvega268@gmail.com',
         to_email_roi: 'rogeret06@gmail.com',
-        message: '¡Enhorabuena, Ali! Has superado el Trivial de nivel experto con una puntuación perfecta. Queda oficialmente demostrado que eres la mayor fan de la serie. Disfruta mucho de las flores y espero que estrenes el top de Stradivarius muy pronto. ¡Feliz cumpleaños!'
+        message: '¡Enhorabuena, Ali! Has superado el Trivial de nivel experto con una puntuación perfecta. Queda oficialmente demostrado que eres la mayor fan de la serie. Disfruta mucho de las flores. ¡Feliz cumpleaños! Te quiero muchísimo, Roi.'
     };
 
     // Reemplaza 'TU_SERVICE_ID' y 'TU_TEMPLATE_ID' con los de tu cuenta de EmailJS
-    emailjs.send('TU_SERVICE_ID', 'TU_TEMPLATE_ID', templateParams)
+    emailjs.send('service_zuu8pui', 'template_g1yuwd5', templateParams)
         .then(function(response) {
            console.log('Correos enviados correctamente', response.status, response.text);
         }, function(error) {
