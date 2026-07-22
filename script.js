@@ -101,6 +101,12 @@ const endScoreText = document.getElementById('end-score-text');
 const successContent = document.getElementById('success-content');
 const retryBtn = document.getElementById('retry-btn');
 const emailMessageDisplay = document.getElementById('email-message-display');
+const timerBar = document.getElementById('timer-bar');
+
+let currentQuestionIndex = 0;
+let score = 0;
+let timer; // Variable para controlar el intervalo de tiempo
+let timeLeft = 15; // Segundos por pregunta
 
 let currentQuestionIndex = 0;
 let score = 0;
@@ -110,6 +116,7 @@ startButton.addEventListener('click', startGame);
 
 retryBtn.addEventListener('click', () => {
     endScreen.classList.remove('active');
+    clearInterval(timer);
     startGame();
 });
 
@@ -126,14 +133,12 @@ function showQuestion() {
     resetState();
     let currentQuestion = questions[currentQuestionIndex];
     
-    // --- NUEVA LÓGICA DE IMAGEN ---
     if (currentQuestion.image) {
         questionImage.src = currentQuestion.image;
-        questionImage.style.display = 'block'; // Muestra la imagen
+        questionImage.style.display = 'block';
     } else {
-        questionImage.style.display = 'none';  // Oculta la imagen si no hay
+        questionImage.style.display = 'none';
     }
-    // ------------------------------
 
     questionElement.innerText = currentQuestion.question;
     progressText.innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
@@ -148,15 +153,13 @@ function showQuestion() {
         button.addEventListener('click', selectAnswer);
         answersContainer.appendChild(button);
     });
-}
 
-function resetState() {
-    while (answersContainer.firstChild) {
-        answersContainer.removeChild(answersContainer.firstChild);
-    }
+    startTimer(); // NUEVO
 }
 
 function selectAnswer(e) {
+    clearInterval(timer); // NUEVO: Para el reloj
+
     const selectedButton = e.target;
     const isCorrect = selectedButton.dataset.correct === "true";
     
@@ -170,6 +173,12 @@ function selectAnswer(e) {
         showQuestion();
     } else {
         showEndScreen();
+    }
+}
+
+function resetState() {
+    while (answersContainer.firstChild) {
+        answersContainer.removeChild(answersContainer.firstChild);
     }
 }
 
@@ -216,4 +225,34 @@ function enviarCorreos(mensaje) {
            console.log('❌ Fallo al enviar los correos', error);
         });
     */
+}
+
+function startTimer() {
+    timeLeft = 15; 
+    timerBar.style.width = '100%'; 
+    timerBar.classList.remove('timer-warning'); 
+
+    timer = setInterval(() => {
+        timeLeft--;
+        const percentage = (timeLeft / 15) * 100;
+        timerBar.style.width = `${percentage}%`;
+
+        if (timeLeft <= 5) {
+            timerBar.classList.add('timer-warning');
+        }
+
+        if (timeLeft <= 0) {
+            clearInterval(timer);
+            timeOut();
+        }
+    }, 1000);
+}
+
+function timeOut() {
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showEndScreen();
+    }
 }
