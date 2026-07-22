@@ -29,17 +29,20 @@
             <div id="answers-container" class="btn-grid"></div>
             <p id="progress-text">1 / 8</p>
         </div>
-
-        <!-- Pantalla Final -->
+        
+<!-- Pantalla Final -->
         <div id="end-screen" class="screen hidden">
-            <h1>¡Prueba Superada!</h1>
-            <p>Se ha enviado un correo con los resultados y las instrucciones de tus regalos.</p>
-            <div class="gift-reveal">
-                <p>Las flores te esperan en:</p>
-                <h3 id="secret-location">[ESCRIBE AQUÍ LA UBICACIÓN]</h3>
+            <h1 id="end-title">¡Prueba Superada!</h1>
+            <p id="end-score-text">Has acertado X de Y preguntas.</p>
+
+            <!-- Este bloque solo se mostrará si acierta todas -->
+            <div id="success-content" style="display: none;">
+                <div class="gift-reveal">
+                    <p style="margin-bottom: 10px;"><strong>Mensaje enviado a tu correo:</strong></p>
+                    <p id="email-message-display" style="font-style: italic; color: var(--ios-blue);"></p>
+                </div>
             </div>
+            
+            <!-- Botón para reintentar si falla alguna -->
+            <button id="retry-btn" class="ios-btn primary" style="display: none; margin-top: 20px;">Volver a intentarlo</button>
         </div>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
