@@ -1,0 +1,88 @@
+:root {
+    --friends-purple: #835C9A;
+    --friends-yellow: #F4C93F;
+    --friends-red: #E53B3B;
+    --friends-blue: #40A4D8;
+    --bg-color: #f4f4f9;
+    --text-color: #333;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif; /* Aquí luego puedes inyectar la fuente de Friends */
+    background-color: var(--friends-purple);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.app-container {
+    background-color: var(--bg-color);
+    width: 90%;
+    max-width: 500px;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    text-align: center;
+}
+
+.screen {
+    display: none;
+}
+
+.screen.active {
+    display: block;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+button {
+    background-color: var(--friends-yellow);
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.1em;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s;
+    font-weight: bold;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
+
+.btn-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin: 30px 0;
+}
+
+.btn-grid button {
+    background-color: #fff;
+    border: 2px solid var(--friends-blue);
+}
+
+.btn-grid button:hover {
+    background-color: var(--friends-blue);
+    color: #fff;
+}
+
+#progress-text {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.gift-reveal {
+    margin-top: 30px;
+    padding: 20px;
+    border: 3px dashed var(--friends-red);
+    border-radius: 10px;
+}
