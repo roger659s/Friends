@@ -177,7 +177,7 @@ function enviarCorreos(mensaje) {
     console.log("Mensaje:", templateParams.message);
     
     /* 
-    emailjs.send('TU_SERVICE_ID', 'TU_TEMPLATE_ID', templateParams)
+    emailjs.send('service_zuu8pui', 'template_g1yuwd5', templateParams)
         .then(function(response) {
            console.log('✅ Correos enviados correctamente', response.status, response.text);
         }, function(error) {
