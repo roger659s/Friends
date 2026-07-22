@@ -65,6 +65,7 @@ const questions = [
     }
 ];
 
+// Captura de elementos del DOM
 const startButton = document.getElementById('start-btn');
 const startScreen = document.getElementById('start-screen');
 const gameScreen = document.getElementById('game-screen');
@@ -73,11 +74,24 @@ const questionElement = document.getElementById('question-text');
 const answersContainer = document.getElementById('answers-container');
 const progressText = document.getElementById('progress-text');
 
+const endTitle = document.getElementById('end-title');
+const endScoreText = document.getElementById('end-score-text');
+const successContent = document.getElementById('success-content');
+const retryBtn = document.getElementById('retry-btn');
+const emailMessageDisplay = document.getElementById('email-message-display');
+
 let currentQuestionIndex = 0;
 let score = 0;
 
+// Eventos de los botones principales
 startButton.addEventListener('click', startGame);
 
+retryBtn.addEventListener('click', () => {
+    endScreen.classList.remove('active');
+    startGame();
+});
+
+// Funciones del juego
 function startGame() {
     startScreen.classList.remove('active');
     gameScreen.classList.add('active');
@@ -129,17 +143,28 @@ function selectAnswer(e) {
 
 function showEndScreen() {
     gameScreen.classList.remove('active');
+    endScreen.classList.add('active');
     
+    endScoreText.innerText = `Has acertado ${score} de ${questions.length} preguntas.`;
+
     if (score === questions.length) {
-        endScreen.classList.add('active');
-        enviarCorreos();
+        endTitle.innerText = "¡Prueba Superada!";
+        successContent.style.display = "block";
+        retryBtn.style.display = "none";
+
+        const textoFinal = '¡Enhorabuena, Ali! Has superado el Trivial de nivel experto con una puntuación perfecta. Queda oficialmente demostrado que eres la mayor fan de la serie. Disfruta mucho de las flores. ¡Feliz cumpleaños! Te quiero muchísimo, Roi.';
+        
+        emailMessageDisplay.innerText = `"${textoFinal}"`;
+        
+        enviarCorreos(textoFinal);
     } else {
-        // Si falla, vuelve a empezar
-        alert(`Has acertado ${score} de ${questions.length}. ¡Tienes que hacer una puntuación perfecta!`);
-        startGame();
+        endTitle.innerText = "¡Casi lo tienes!";
+        successContent.style.display = "none";
+        retryBtn.style.display = "block";
     }
 }
 
+// Función de simulación/envío de correos
 function enviarCorreos(mensaje) {
     const templateParams = {
         to_email_ali: 'alisonvega268@gmail.com',
@@ -147,17 +172,12 @@ function enviarCorreos(mensaje) {
         message: mensaje
     };
 
-    // --- MODO PRUEBA ---
-    // En lugar de enviar el correo, lo imprimimos en la consola para comprobar que los datos llegan bien.
     console.log("🔵 MODO PRUEBA: Simulando envío de correo...");
     console.log("Destinatarios:", templateParams.to_email_ali, "y", templateParams.to_email_roi);
     console.log("Mensaje:", templateParams.message);
     
-    // --- CÓDIGO REAL (Desactivado de momento) ---
-    // Para cuando quieras que funcione de verdad, borra los símbolos /* y */ que envuelven el bloque de abajo.
-    
-    /*
-    emailjs.send('service_zuu8pui', 'template_g1yuwd5', templateParams)
+    /* 
+    emailjs.send('TU_SERVICE_ID', 'TU_TEMPLATE_ID', templateParams)
         .then(function(response) {
            console.log('✅ Correos enviados correctamente', response.status, response.text);
         }, function(error) {
