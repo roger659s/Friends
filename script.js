@@ -45,11 +45,12 @@ const questions = [
         ]
     },
     {
-        question: "¿Cuántas páginas tenía la carta que Rachel le escribió a Ross?",
+       question: "¿Para animar a quién se puso Monica este pavo en la cabeza?",
+        image: "pavo.jpg", // Asegúrate de tener una imagen llamada así en tu carpeta
         answers: [
-            { text: "18 páginas (por delante y por detrás)", correct: true },
-            { text: "12 páginas", correct: false },
-            { text: "21 páginas (por delante y por detrás)", correct: false }
+            { text: "Joey", correct: false },
+            { text: "Ross", correct: false },
+            { text: "Chandler", correct: true }
         ]
     },
     {
