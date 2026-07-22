@@ -5,12 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trivia de Cumpleaños</title>
     <link rel="stylesheet" href="style.css">
+    
     <!-- SDK de EmailJS -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
         (function() {
-            // AQUÍ PONDRÁS TU PUBLIC KEY DE EMAILJS
-            emailjs.init("sV3EfY2z08RxJ9kGQ");
+            // Pon aquí tu Public Key cuando vayas a activarlo
+            emailjs.init("TU_PUBLIC_KEY");
         })();
     </script>
 </head>
@@ -29,20 +30,26 @@
             <div id="answers-container" class="btn-grid"></div>
             <p id="progress-text">1 / 8</p>
         </div>
-        
-<!-- Pantalla Final -->
+
+        <!-- Pantalla Final -->
         <div id="end-screen" class="screen hidden">
             <h1 id="end-title">¡Prueba Superada!</h1>
             <p id="end-score-text">Has acertado X de Y preguntas.</p>
 
             <!-- Este bloque solo se mostrará si acierta todas -->
             <div id="success-content" style="display: none;">
-                <div class="gift-reveal">
+                <div class="gift-reveal" style="margin-top: 20px;">
                     <p style="margin-bottom: 10px;"><strong>Mensaje enviado a tu correo:</strong></p>
-                    <p id="email-message-display" style="font-style: italic; color: var(--ios-blue);"></p>
+                    <p id="email-message-display" style="font-size: 1.1em; font-style: italic; color: var(--ios-blue);"></p>
                 </div>
             </div>
-            
+
             <!-- Botón para reintentar si falla alguna -->
             <button id="retry-btn" class="ios-btn primary" style="display: none; margin-top: 20px;">Volver a intentarlo</button>
         </div>
+    </div>
+    
+    <!-- Script siempre al final del body -->
+    <script src="script.js"></script>
+</body>
+</html>
