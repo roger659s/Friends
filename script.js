@@ -1,108 +1,158 @@
-:root {
-    --ios-blue: #007AFF;
-    --ios-bg: rgba(255, 255, 255, 0.75);
-    --ios-text: #1C1C1E;
+const questions = [
+    {
+        question: "¿A qué nombre llega la guía de televisión de Chandler y Joey?",
+        answers: [
+            { text: "Chanandler Bong", correct: false },
+            { text: "Miss Chanandler Bong", correct: true },
+            { text: "Chandler Bang", correct: false }
+        ]
+    },
+    {
+        question: "¿Cuál era el número del apartamento de Monica antes de cambiarlo al 20?",
+        answers: [
+            { text: "4", correct: false },
+            { text: "5", correct: true },
+            { text: "7", correct: false }
+        ]
+    },
+    {
+        question: "¿Cómo se llama el peluche de pingüino de Joey?",
+        answers: [
+            { text: "Hugsy", correct: true },
+            { text: "Waddle", correct: false },
+            { text: "Maurice", correct: false }
+        ]
+    },
+    {
+        question: "¿Cuántas páginas tenía la carta que Rachel le escribió a Ross?",
+        answers: [
+            { text: "18 páginas (por delante y por detrás)", correct: true },
+            { text: "12 páginas", correct: false },
+            { text: "21 páginas (por delante y por detrás)", correct: false }
+        ]
+    },
+    {
+        question: "¿Qué alter ego utiliza Joey cuando quiere ocultar su identidad?",
+        answers: [
+            { text: "Art Vandelay", correct: false },
+            { text: "Ken Adams", correct: true },
+            { text: "Clint West", correct: false }
+        ]
+    },
+    {
+        question: "¿De qué categoría es la toalla que Monica usa para 'uso diario'?",
+        answers: [
+            { text: "Categoría 4", correct: false },
+            { text: "Categoría 11", correct: true },
+            { text: "Categoría 7", correct: false }
+        ]
+    },
+    {
+        question: "¿Cuál es el segundo nombre de Chandler?",
+        answers: [
+            { text: "Muriel", correct: true },
+            { text: "Eustace", correct: false },
+            { text: "Barnaby", correct: false }
+        ]
+    },
+    {
+        question: "¿Qué idioma intenta aprender Joey para una audición (y lo hace fatal)?",
+        answers: [
+            { text: "Italiano", correct: false },
+            { text: "Francés", correct: true },
+            { text: "Español", correct: false }
+        ]
+    }
+];
+
+const startButton = document.getElementById('start-btn');
+const startScreen = document.getElementById('start-screen');
+const gameScreen = document.getElementById('game-screen');
+const endScreen = document.getElementById('end-screen');
+const questionElement = document.getElementById('question-text');
+const answersContainer = document.getElementById('answers-container');
+const progressText = document.getElementById('progress-text');
+
+let currentQuestionIndex = 0;
+let score = 0;
+
+startButton.addEventListener('click', startGame);
+
+function startGame() {
+    startScreen.classList.remove('active');
+    gameScreen.classList.add('active');
+    currentQuestionIndex = 0;
+    score = 0;
+    showQuestion();
 }
 
-body {
-    margin: 0;
-    padding: 0;
-    /* Fuente oficial del ecosistema Apple */
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-    color: var(--ios-text);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    /* Aquí pones la imagen generada por IA */
-    background-image: url('tu-imagen-de-fondo.jpg'); 
-    background-size: cover;
-    background-position: center;
+function showQuestion() {
+    resetState();
+    let currentQuestion = questions[currentQuestionIndex];
+    questionElement.innerText = currentQuestion.question;
+    progressText.innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
+
+    currentQuestion.answers.forEach(answer => {
+        const button = document.createElement('button');
+        button.innerText = answer.text;
+        button.classList.add('ios-btn');
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
+        }
+        button.addEventListener('click', selectAnswer);
+        answersContainer.appendChild(button);
+    });
 }
 
-.ios-container {
-    background: var(--ios-bg);
-    /* Efecto de cristal esmerilado típico de iOS */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    width: 90%;
-    max-width: 380px; /* Ancho típico de un móvil */
-    border-radius: 24px;
-    padding: 40px 20px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    text-align: center;
+function resetState() {
+    while (answersContainer.firstChild) {
+        answersContainer.removeChild(answersContainer.firstChild);
+    }
 }
 
-.screen {
-    display: none;
-    animation: fadeIn 0.4s ease;
+function selectAnswer(e) {
+    const selectedButton = e.target;
+    const isCorrect = selectedButton.dataset.correct === "true";
+    
+    if (isCorrect) {
+        score++;
+    }
+
+    currentQuestionIndex++;
+    
+    if (currentQuestionIndex < questions.length) {
+        showQuestion();
+    } else {
+        showEndScreen();
+    }
 }
 
-.screen.active {
-    display: block;
+function showEndScreen() {
+    gameScreen.classList.remove('active');
+    
+    if (score === questions.length) {
+        endScreen.classList.add('active');
+        enviarCorreos();
+    } else {
+        // Si falla, vuelve a empezar
+        alert(`Has acertado ${score} de ${questions.length}. ¡Tienes que hacer una puntuación perfecta!`);
+        startGame();
+    }
 }
 
-h1 {
-    font-size: 1.8em;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    margin-bottom: 15px;
-}
+function enviarCorreos() {
+    // Parámetros para la plantilla de EmailJS
+    const templateParams = {
+        to_email_ali: 'alisonvega268@gmail.com',
+        to_email_roi: 'rogeret06@gmail.com',
+        message: '¡Enhorabuena, Ali! Has superado el Trivial de nivel experto con una puntuación perfecta. Queda oficialmente demostrado que eres la mayor fan de la serie. Disfruta mucho de las flores y espero que estrenes el top de Stradivarius muy pronto. ¡Feliz cumpleaños!'
+    };
 
-p {
-    font-size: 1em;
-    color: #3A3A3C;
-    margin-bottom: 30px;
-}
-
-.ios-btn {
-    width: 100%;
-    padding: 16px;
-    border-radius: 14px;
-    border: none;
-    font-size: 1.1em;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-bottom: 12px;
-}
-
-.ios-btn.primary {
-    background-color: var(--ios-blue);
-    color: white;
-}
-
-.ios-btn.primary:active {
-    background-color: #005ecb;
-}
-
-.btn-grid button {
-    background-color: rgba(255, 255, 255, 0.9);
-    color: var(--ios-blue);
-    border: 1px solid rgba(0, 122, 255, 0.3);
-}
-
-.btn-grid button:active {
-    background-color: var(--ios-blue);
-    color: white;
-}
-
-#progress-text {
-    font-size: 0.85em;
-    font-weight: 500;
-    color: #8E8E93;
-    margin-top: 20px;
-}
-
-.gift-reveal {
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 14px;
-    padding: 15px;
-    margin-top: 20px;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    // Reemplaza 'TU_SERVICE_ID' y 'TU_TEMPLATE_ID' con los de tu cuenta de EmailJS
+    emailjs.send('TU_SERVICE_ID', 'TU_TEMPLATE_ID', templateParams)
+        .then(function(response) {
+           console.log('Correos enviados correctamente', response.status, response.text);
+        }, function(error) {
+           console.log('Fallo al enviar los correos', error);
+        });
 }
