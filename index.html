@@ -3,34 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The One With The Trivia</title>
+    <title>Trivia de Cumpleaños</title>
     <link rel="stylesheet" href="style.css">
+    <!-- SDK de EmailJS -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            // AQUÍ PONDRÁS TU PUBLIC KEY DE EMAILJS
+            emailjs.init("TU_PUBLIC_KEY");
+        })();
+    </script>
 </head>
 <body>
-    <div class="app-container">
+    <div class="ios-container">
         <!-- Pantalla de Inicio -->
         <div id="start-screen" class="screen active">
-            <h1>The One With<br>The Birthday Trivia</h1>
-            <p>Demuestra que eres la mayor fan para desbloquear tu regalo.</p>
-            <button id="start-btn">Jugar</button>
+            <h1>The One With<br>The Trivia</h1>
+            <p>Demuestra tu nivel experto para desbloquear la sorpresa.</p>
+            <button id="start-btn" class="ios-btn primary">Comenzar Juego</button>
         </div>
 
         <!-- Pantalla de Juego -->
         <div id="game-screen" class="screen hidden">
             <h2 id="question-text">Pregunta...</h2>
-            <div id="answers-container" class="btn-grid">
-                <!-- Los botones se generan con JS -->
-            </div>
-            <p id="progress-text">Pregunta 1 de 5</p>
+            <div id="answers-container" class="btn-grid"></div>
+            <p id="progress-text">1 / 8</p>
         </div>
 
         <!-- Pantalla Final -->
         <div id="end-screen" class="screen hidden">
-            <h1>¡Feliz Cumpleaños, Ali!</h1>
-            <p>Has superado el Trivia.</p>
+            <h1>¡Prueba Superada!</h1>
+            <p>Se ha enviado un correo con los resultados y las instrucciones de tus regalos.</p>
             <div class="gift-reveal">
-                <p>Tus regalos físicos (las flores y el top) están escondidos en:</p>
-                <h3 id="secret-location">[AQUÍ ESCRIBES LA UBICACIÓN]</h3>
+                <p>Las flores y tu regalo te esperan en:</p>
+                <h3 id="secret-location">[ESCRIBE AQUÍ LA UBICACIÓN]</h3>
             </div>
         </div>
     </div>
