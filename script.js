@@ -1,4 +1,25 @@
+const questionImage = document.getElementById('question-image');
+
 const questions = [
+    {
+        // Esta pregunta TIENE imagen
+        question: "¿Qué escena icónica representa esta imagen?",
+        image: "pivot.jpg", // Asegúrate de tener una imagen llamada así en tu carpeta
+        answers: [
+            { text: "El sofá de Ross", correct: true },
+            { text: "La mudanza de Monica", correct: false },
+            { text: "Joey comprando muebles", correct: false }
+        ]
+    },
+    {
+        // Esta pregunta NO TIENE imagen (funciona normal)
+        question: "¿Cuál era el número del apartamento de Monica antes de cambiarlo al 20?",
+        answers: [
+            { text: "4", correct: false },
+            { text: "5", correct: true },
+            { text: "7", correct: false }
+        ]
+    },
     {
         question: "¿A qué nombre llega la guía de televisión de Chandler y Joey?",
         answers: [
@@ -103,6 +124,16 @@ function startGame() {
 function showQuestion() {
     resetState();
     let currentQuestion = questions[currentQuestionIndex];
+    
+    // --- NUEVA LÓGICA DE IMAGEN ---
+    if (currentQuestion.image) {
+        questionImage.src = currentQuestion.image;
+        questionImage.style.display = 'block'; // Muestra la imagen
+    } else {
+        questionImage.style.display = 'none';  // Oculta la imagen si no hay
+    }
+    // ------------------------------
+
     questionElement.innerText = currentQuestion.question;
     progressText.innerText = `${currentQuestionIndex + 1} / ${questions.length}`;
 
