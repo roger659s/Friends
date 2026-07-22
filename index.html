@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The One With The Trivia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Pantalla de Inicio -->
+        <div id="start-screen" class="screen active">
+            <h1>The One With<br>The Birthday Trivia</h1>
+            <p>Demuestra que eres la mayor fan para desbloquear tu regalo.</p>
+            <button id="start-btn">Jugar</button>
+        </div>
+
+        <!-- Pantalla de Juego -->
+        <div id="game-screen" class="screen hidden">
+            <h2 id="question-text">Pregunta...</h2>
+            <div id="answers-container" class="btn-grid">
+                <!-- Los botones se generan con JS -->
+            </div>
+            <p id="progress-text">Pregunta 1 de 5</p>
+        </div>
+
+        <!-- Pantalla Final -->
+        <div id="end-screen" class="screen hidden">
+            <h1>¡Feliz Cumpleaños, Ali!</h1>
+            <p>Has superado el Trivia.</p>
+            <div class="gift-reveal">
+                <p>Tus regalos físicos (las flores y el top) están escondidos en:</p>
+                <h3 id="secret-location">[AQUÍ ESCRIBES LA UBICACIÓN]</h3>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
