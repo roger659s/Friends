@@ -23,8 +23,8 @@ body {
 .ios-container {
     background: var(--ios-bg);
     /* Efecto de cristal esmerilado típico de iOS */
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     width: 90%;
     max-width: 380px; /* Ancho típico de un móvil */
     border-radius: 24px;
