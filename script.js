@@ -140,19 +140,28 @@ function showEndScreen() {
     }
 }
 
-function enviarCorreos() {
-    // Parámetros para la plantilla de EmailJS
+function enviarCorreos(mensaje) {
     const templateParams = {
         to_email_ali: 'alisonvega268@gmail.com',
         to_email_roi: 'rogeret06@gmail.com',
-        message: '¡Enhorabuena, Ali! Has superado el Trivial de nivel experto con una puntuación perfecta. Queda oficialmente demostrado que eres la mayor fan de la serie. Disfruta mucho de las flores. ¡Feliz cumpleaños! Te quiero muchísimo, Roi.'
+        message: mensaje
     };
 
-    // Reemplaza 'TU_SERVICE_ID' y 'TU_TEMPLATE_ID' con los de tu cuenta de EmailJS
+    // --- MODO PRUEBA ---
+    // En lugar de enviar el correo, lo imprimimos en la consola para comprobar que los datos llegan bien.
+    console.log("🔵 MODO PRUEBA: Simulando envío de correo...");
+    console.log("Destinatarios:", templateParams.to_email_ali, "y", templateParams.to_email_roi);
+    console.log("Mensaje:", templateParams.message);
+    
+    // --- CÓDIGO REAL (Desactivado de momento) ---
+    // Para cuando quieras que funcione de verdad, borra los símbolos /* y */ que envuelven el bloque de abajo.
+    
+    /*
     emailjs.send('service_zuu8pui', 'template_g1yuwd5', templateParams)
         .then(function(response) {
-           console.log('Correos enviados correctamente', response.status, response.text);
+           console.log('✅ Correos enviados correctamente', response.status, response.text);
         }, function(error) {
-           console.log('Fallo al enviar los correos', error);
+           console.log('❌ Fallo al enviar los correos', error);
         });
+    */
 }
